@@ -20,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Raf Düzenle"
+        android:textColor="@color/colorPrimaryGreen"
         android:textAllCaps="false"
         android:textSize="17dp"
         android:id="@+id/raf_kaydet"

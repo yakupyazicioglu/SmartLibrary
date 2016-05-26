@@ -58,8 +58,7 @@ public class KitapDuzenleFragment extends Fragment implements AdapterView.OnItem
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_kitap_duzenle, container, false);
         // Inflate the layout for this fragment
         return rootView;
