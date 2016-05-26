@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="15dp"
+    android:layout_marginLeft="10dp">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName|textCapWords"
+        android:ems="10"
+        android:id="@+id/kitapd"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:hint="Kitap Adı" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName|textCapWords"
+        android:ems="10"
+        android:layout_marginTop="3dp"
+        android:id="@+id/yazard"
+        android:hint="Yazar Adı"
+        android:layout_below="@+id/kitapd"
+        android:layout_alignLeft="@+id/kitapd"
+        android:layout_alignStart="@+id/kitapd" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_marginTop="3dp"
+        android:id="@+id/sayfad"
+        android:layout_below="@+id/yazard"
+        android:layout_alignLeft="@+id/yazard"
+        android:layout_alignStart="@+id/yazard"
+        android:hint="Sayfa Sayısı" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kaydet"
+        android:textAllCaps="false"
+        android:textSize="17dp"
+        android:id="@+id/duzenled"
+        android:textColor="@color/colorPrimaryGreen"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="42dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_marginTop="5dp"
+        android:text="Kitap Rafı"
+        android:id="@+id/text_raf"
+        android:layout_below="@+id/sayfad"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerrafd"
+        android:layout_marginTop="5dp"
+        android:contextClickable="false"
+        android:layout_below="@+id/text_raf" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine|textCapSentences"
+        android:ems="10"
+        android:id="@+id/notd"
+        android:layout_marginTop="2dp"
+        android:layout_below="@+id/text_notlar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/readd"
+        android:text="Kitap Notları"
+        android:id="@+id/text_notlar"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bu kitabı okudunuz mu?"
+        android:id="@+id/readd"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/spinnerrafd"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>
