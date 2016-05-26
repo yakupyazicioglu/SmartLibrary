@@ -1,1 +1,1 @@
-# SmartLibrary
+# SmartLibrarySmart Library
