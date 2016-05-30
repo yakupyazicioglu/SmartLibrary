@@ -18,13 +18,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int NEW_DATABASE_VERSION = 2;
 
     public static final String DB_NAME="kutuphane.db";
-    public static final String TABLE_ALLBOOK="kitaplar";
-    public static final String TABLE_FAVORI="favoriler";
+    public static final String TABLE_ALLBOOK="Tüm_Kitaplar";
+    public static final String TABLE_FAVORI="Favoriler";
     public static final String TABLE_DEFAULT_RAF="Varsayılan";
+    public static final String TABLE_DEFAULT_RAF_FK="VarsayılanFK";
     public static final String TABLE_YAZARLAR="yazarlar";
     public static final String TABLE_SILINENLER="silinenler";
 
     public static String ID= "_id";
+    public static String FK= "fk";
     public static String KITAP = "kitap";
     public static String YAZAR = "yazar";
     public static String SAYFA = "sayfa";
@@ -56,12 +58,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + SAYFA + " TEXT" + ")";
         db.execSQL(CREATE_TABLE_FAV);
 
-        String CREATE_TABLE_DEFAULT_RAF = "CREATE TABLE " + TABLE_DEFAULT_RAF + "("
+        /*String CREATE_TABLE_DEFAULT_RAF = "CREATE TABLE " + TABLE_DEFAULT_RAF + "("
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KITAP + " TEXT,"
                 + YAZAR + " TEXT,"
                 + SAYFA + " TEXT" + ")";
-        db.execSQL(CREATE_TABLE_DEFAULT_RAF);
+        db.execSQL(CREATE_TABLE_DEFAULT_RAF);*/
+
+        /*String CREATE_TABLE_DEFAULT_RAF_FK = "CREATE TABLE " + TABLE_DEFAULT_RAF_FK + "("
+                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + FK + " INTEGER," +" FOREIGN KEY ("+FK+") REFERENCES "+TABLE_ALLBOOK+"("+ID+")"
+                + KITAP + " TEXT,"
+                + YAZAR + " TEXT,"
+                + SAYFA + " TEXT" + ")";
+        db.execSQL(CREATE_TABLE_DEFAULT_RAF_FK);*/
 
 
     }
@@ -201,7 +211,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String selectQuery = "SELECT name FROM sqlite_master WHERE type='table'" +
                 " AND name NOT LIKE 'android_metadata'" +
                 " AND name NOT LIKE 'sqlite_sequence'" +
-                " AND name NOT LIKE 'kitaplar'" +
                 " AND name NOT LIKE 'favoriler'";
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -306,4 +315,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
 
     }
+
 }

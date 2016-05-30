@@ -1,6 +1,7 @@
 package mirrket.com.smartlibrary.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import mirrket.com.smartlibrary.Activity.MainActivity;
 import mirrket.com.smartlibrary.Adapter.ExpandableListAdapter;
 import mirrket.com.smartlibrary.Database.DatabaseHelper;
 import mirrket.com.smartlibrary.R;
@@ -26,15 +28,23 @@ import mirrket.com.smartlibrary.Utils.AlertDialogUtils;
 
 public class RaflarFragment extends Fragment {
 
+    public static final String KEY_ID = "id";
+    public static final String KEY_NAME = "kitap";
+    public static final String KEY_AUTHOR = "yazar";
+
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
+    ArrayList<HashMap<String, String>> kitap_liste;
     HashMap<String, List<String>> listDataChild;
+    ArrayList<HashMap<String, String>> booksList = new ArrayList<HashMap<String, String>>();
     DatabaseHelper databaseHelper;
     ListView raflar;
     ArrayAdapter<String> adapter;
     int raf_idler[];
+    String kitap_idler[];
     ArrayList<String> raf_liste;
+    int idraf;
     int idb;
     int idchild;
     int idgroup;
@@ -49,6 +59,7 @@ public class RaflarFragment extends Fragment {
         super.onCreate(savedInstanceState);
         databaseHelper=new DatabaseHelper(getActivity());
         raf_liste = databaseHelper.tumraflar();
+        kitap_liste = databaseHelper.tumkitaplar();
 
 
     }
@@ -63,7 +74,21 @@ public class RaflarFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //raflar = (ListView)view.findViewById(R.id.expandableListViewRaf);
+        kitap_idler = new String [kitap_liste.size()]; // kitap id lerini tutucam�z string arrayi olusturduk.
+        for (int i = 0; i < kitap_liste.size(); i++) {
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put(KEY_ID, kitap_liste.get(i).get("_id"));
+            map.put(KEY_NAME, kitap_liste.get(i).get("kitap"));
+            map.put(KEY_AUTHOR, kitap_liste.get(i).get("yazar"));
+
+            booksList.add(map);
+
+            kitap_idler[i] = kitap_liste.get(i).get("_id");
+            //kitap_adlari[i] = kitap_liste.get(i).get("kitap");
+            //kitap_yazarlari[i] = kitap_liste.get(i).get("yazar");
+
+        }
+
         expListView = (ExpandableListView)view.findViewById(R.id.expandableListViewRaf);
         prepareListData();
         listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
@@ -72,85 +97,84 @@ public class RaflarFragment extends Fragment {
         expListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                idb = position;
-                ArrayList<AlertDialogUtils.AlertDialogItem> items = new ArrayList<AlertDialogUtils.AlertDialogItem>();
-                items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_item_sil),mRafSil) );
-                AlertDialogUtils.showContextDialogue(getActivity(),"", items);
-                return false;
-            }
-        });
 
+                idraf = position;
+                if(idraf==0)
+                    Toast.makeText(getActivity(), "Bu raf üzerinde işlem yapamazsınız!!", Toast.LENGTH_LONG).show();
+                else{
+                    ArrayList<AlertDialogUtils.AlertDialogItem> items = new ArrayList<AlertDialogUtils.AlertDialogItem>();
+                    items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_item_sil),mRafSil) );
+                    AlertDialogUtils.showContextDialogue(getActivity(),"", items);
+                }
 
-        // Listview Group expanded listener
-        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                /*Toast.makeText(getActivity(),
-                        listDataHeader.get(groupPosition) + " Açıldı", Toast.LENGTH_SHORT).show();*/
-            }
-        });
-
-        // Listview Group collasped listener
-        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                /*Toast.makeText(getActivity(),
-                        listDataHeader.get(groupPosition) + " Kapandı", Toast.LENGTH_SHORT).show();*/
-
+                return true;
             }
         });
 
         // Listview on child click listener
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
             @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-                Toast.makeText(getActivity(),
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+
+                idb = (int) id;
+                idgroup = groupPosition;
+                idchild = childPosition;
+                ArrayList<AlertDialogUtils.AlertDialogItem> items = new ArrayList<AlertDialogUtils.AlertDialogItem>();
+                items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_item_sil),mKitapSil) );
+                items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_raf_item_sil),mKitapRafSil) );
+                AlertDialogUtils.showContextDialogue(getActivity(),"", items);
+
+
+                /*Toast.makeText(getActivity(),
                         listDataHeader.get(groupPosition) + " : "
                                 + listDataChild.get(listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT).show();
-                return false;
+                                childPosition), Toast.LENGTH_SHORT).show();*/
+                return true;
             }
         });
     }
 
-    /*public void showPopupMenu (View view){
 
-        final String item = (String) view.getTag();
+    private Runnable mRafSil = new Runnable() {
+        @Override
+        public void run() {
+            DatabaseHelper db = new DatabaseHelper(getActivity());
+            db.rafSil(raf_liste.get(idraf));
 
-        PopupMenu popup = new PopupMenu(getActivity(), view, Gravity.RIGHT);
-        popup.getMenuInflater().inflate(R.menu.menu_popupraf, popup.getMenu());
+            RaflarFragment fragment = new RaflarFragment();
+            FragmentTransaction tr = getFragmentManager().beginTransaction();
+            tr.replace(R.id.container_body, fragment);
+            tr.commit();
+        }
+    };
 
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.menu_duzenle:
-                        Intent intent = new Intent(getActivity(), RafDuzenle.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.menu_sil:
-                        DatabaseHelper db = new DatabaseHelper(getActivity());
-                        db.rafSil(raf_liste.get(idb));
+    private Runnable mKitapSil = new Runnable() {
+        @Override
+        public void run() {
+            DatabaseHelper db = new DatabaseHelper(getActivity());
+            db.kitapSil(Integer.parseInt(kitap_idler[idb]));
+            Toast.makeText(getActivity(),"Kitap Silindi!!", Toast.LENGTH_SHORT).show();
 
-                        RaflarFragment fragment = new RaflarFragment();
-                        FragmentTransaction tr = getFragmentManager().beginTransaction();
-                        tr.replace(R.id.container_body, fragment);
-                        tr.commit();
-                        break;
+            RaflarFragment fragment = new RaflarFragment();
+            FragmentTransaction tr = getFragmentManager().beginTransaction();
+            tr.replace(R.id.container_body, fragment);
+            tr.commit();
+        }
+    };
 
-                    default:
+    private Runnable mKitapRafSil = new Runnable() {
+        @Override
+        public void run() {
+            DatabaseHelper db = new DatabaseHelper(getActivity());
+            db.kitapRafSil(String.valueOf(raf_liste.get(idraf)),idchild);
+            Toast.makeText(getActivity(),"Kitap Silindi!!", Toast.LENGTH_SHORT).show();
 
-                }
-                return false;
-            }
-        });
-
-        popup.show();
-    }*/
+            RaflarFragment fragment = new RaflarFragment();
+            FragmentTransaction tr = getFragmentManager().beginTransaction();
+            tr.replace(R.id.container_body, fragment);
+            tr.commit();
+        }
+    };
 
     private void prepareListData() {
         listDataHeader = new ArrayList<String>();
@@ -166,19 +190,6 @@ public class RaflarFragment extends Fragment {
         }
 
     }
-
-    private Runnable mRafSil = new Runnable() {
-        @Override
-        public void run() {
-            DatabaseHelper db = new DatabaseHelper(getActivity());
-            db.rafSil(raf_liste.get(idb));
-
-            RaflarFragment fragment = new RaflarFragment();
-            FragmentTransaction tr = getFragmentManager().beginTransaction();
-            tr.replace(R.id.container_body, fragment);
-            tr.commit();
-        }
-    };
 
 
 

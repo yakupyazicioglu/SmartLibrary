@@ -27,6 +27,7 @@
     <string name="alert_item_duzenle">Düzenle</string>
     <string name="alert_item_favekle">Favorilere Ekle</string>
     <string name="alert_item_sil">Sil</string>
+    <string name="alert_raf_item_sil">Kitap Sil</string>
 
 
     <!-- navigation drawer item labels  -->

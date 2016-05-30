@@ -91,39 +91,41 @@ public class KutuphaneFragment extends Fragment {
 
             lv.setAdapter(lazyAdapter);
 
-            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-                {
-                    idb=arg2;
-                    Bundle args = new Bundle();
-                    //args.putInt("id", Integer.parseInt(KEY_ID));
-                    args.putInt("id", Integer.parseInt(kitap_idler[idb]));
-
-                    KitapBilgiFragment fragment = new KitapBilgiFragment();
-                    FragmentTransaction tr = getFragmentManager().beginTransaction();
-                    tr.replace(R.id.container_body, fragment);
-                    fragment.setArguments(args);
-                    tr.commit();
-
-                }
-
-            });
-
-            lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    idb=position;
-
-                    ArrayList<AlertDialogUtils.AlertDialogItem> items = new ArrayList<AlertDialogUtils.AlertDialogItem>();
-                    items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_item_favekle), mKitapFavEkle) );
-                    items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_item_duzenle), mKitapDuzenle) );
-                    items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_item_sil),mKitapSil) );
-                    AlertDialogUtils.showContextDialogue(getActivity(),"", items);
-
-                    return false;
-                }
-            });
         }
+
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                idb=position;
+
+                ArrayList<AlertDialogUtils.AlertDialogItem> items = new ArrayList<AlertDialogUtils.AlertDialogItem>();
+                items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_item_favekle), mKitapFavEkle) );
+                items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_item_duzenle), mKitapDuzenle) );
+                items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_item_sil),mKitapSil) );
+                AlertDialogUtils.showContextDialogue(getActivity(),"", items);
+
+                return true;
+            }
+        });
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+            {
+                idb=arg2;
+                Bundle args = new Bundle();
+                //args.putInt("id", Integer.parseInt(KEY_ID));
+                args.putInt("id", Integer.parseInt(kitap_idler[idb]));
+
+                KitapBilgiFragment fragment = new KitapBilgiFragment();
+                FragmentTransaction tr = getFragmentManager().beginTransaction();
+                tr.replace(R.id.container_body, fragment);
+                fragment.setArguments(args);
+                tr.commit();
+
+            }
+
+        });
     }
 
     private Runnable mKitapDuzenle = new Runnable() {
