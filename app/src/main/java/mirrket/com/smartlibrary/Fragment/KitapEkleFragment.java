@@ -101,8 +101,8 @@ public class KitapEkleFragment extends Fragment implements AdapterView.OnItemSel
                         values.put("notlar",notlar.getText().toString());
 
                         db.insert(DatabaseHelper.TABLE_ALLBOOK, null, values);
-                        /*databaseHelper.rafaEkle(kitap.getText().toString(),yazar.getText().toString(),
-                                sayfa.getText().toString(),String.valueOf(spinner.getSelectedItem()));*/
+                        databaseHelper.rafaEkle(kitap.getText().toString(),yazar.getText().toString(),
+                                sayfa.getText().toString(),String.valueOf(spinner.getSelectedItem()));
 
                         Toast.makeText(getActivity(), "Kitap eklenmiştir.", Toast.LENGTH_SHORT).show();
                         Log.v("DBTEST", "KAYIT EKLENDİ");

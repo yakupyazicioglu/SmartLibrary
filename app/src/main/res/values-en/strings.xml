@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">Smart Library</string>
+    <string name="action_settings">Setting</string>
+    <string name="action_search">Search</string>
+    <string name="action_plus">Create</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <!-- navigation drawer names  -->
+    <string name="nav_item_tumkitaplar">All Books</string>
+    <string name="nav_item_kitapraflari">Book Shelf</string>
+    <string name="nav_item_favoriler">Favorites</string>
+    <string name="nav_item_ayarlar">Setting</string>
+
+    <!-- alert dialog names  -->
+    <string name="alert_item_duzenle">Edit</string>
+    <string name="alert_item_favekle">Add Favorites</string>
+    <string name="alert_item_sil">Delete</string>
+
+    <!-- button names  -->
+    <string name="add_book">Add Book</string>
+    <string name="edit_book">Save</string>
+    <string name="add_shelf">Add Shelf</string>
+    <string name="edit_shelf">Save</string>
+
+    <!-- add/edit book/shelf names  -->
+    <string name="book_name">Book Name</string>
+    <string name="author_name">Author Name</string>
+    <string name="page">Page</string>
+    <string name="book_shelf">Book Shelf</string>
+    <string name="read_checkbox">Did you read this book?</string>
+    <string name="book_note">Book Notes</string>
+    <string name="book_notes">About this book..</string>
+    <string name="save">Save</string>
+    <string name="shelf_name">Shelf Name</string>
+
+    <!-- menu names  -->
+    <string name="menu_duzenle">Edit</string>
+    <string name="menu_sil">Delete</string>
+    <string name="menu_favekle">Add Favorites</string>
+
+    <!-- navigation drawer item names  -->
+    <string name="title_tumkitaplar">All Books</string>
+    <string name="title_rafekle">Book Shelfs</string>
+    <string name="title_favoriler">Favorites</string>
+    <string name="title_ayarlar">Setting</string>
+
+    <!-- actionbar item names  -->
+    <string name="title_add_book">Add Book</string>
+    <string name="title_add_shelf">Add Shelf</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_tumkitaplar</item>
+        <item>@string/nav_item_kitapraflari</item>
+        <item>@string/nav_item_favoriler</item>
+        <item>@string/nav_item_ayarlar</item>
+    </string-array>
+
+</resources>

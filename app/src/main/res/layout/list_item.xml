@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
                 android:layout_marginTop="2dp"
-                android:text="Kitap Adı"
+                android:text="@string/book_name"
                 android:layout_marginLeft="8dp"
                 android:textStyle="bold"/>
 
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/kitap_adi"
                 android:textSize="13dp"
-                android:text="Yazar Adı"
+                android:text="@string/author_name"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="2dp" />
 
@@ -45,7 +45,7 @@
         android:layout_width="33dp"
         android:layout_centerVertical="true"
         android:background="?attr/selectableItemBackground"
-        android:src="@drawable/arrow_right"
+        android:src="@drawable/ic_checkmark"
         android:layout_alignParentRight="true" />
 
 

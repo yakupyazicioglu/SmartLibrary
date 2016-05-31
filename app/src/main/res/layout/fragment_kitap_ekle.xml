@@ -17,7 +17,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:hint="Kitap Adı" />
+        android:hint="@string/book_name" />
 
     <EditText
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:inputType="textPersonName|textCapWords"
         android:ems="10"
         android:id="@+id/yazar"
-        android:hint="Yazar Adı"
+        android:hint="@string/author_name"
         android:layout_marginTop="3dp"
         android:layout_below="@+id/kitap"
         android:layout_alignLeft="@+id/kitap"
@@ -41,14 +41,14 @@
         android:layout_below="@+id/yazar"
         android:layout_alignLeft="@+id/yazar"
         android:layout_alignStart="@+id/yazar"
-        android:hint="Sayfa Sayısı" />
+        android:hint="@string/page" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18dp"
         android:layout_marginTop="5dp"
-        android:text="Kitap Rafı"
+        android:text="@string/book_shelf"
         android:id="@+id/text_raf"
         android:layout_below="@+id/sayfa"
         android:layout_centerHorizontal="true"
@@ -76,7 +76,7 @@
         android:layout_below="@+id/text_notlar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="Kitap hakkındaki düşünceleriniz.."
+        android:hint="@string/book_notes"
         android:singleLine="false"/>
 
     <TextView
@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:textSize="18dp"
         android:layout_marginTop="5dp"
-        android:text="Kitap Notları"
+        android:text="@string/book_note"
         android:id="@+id/text_notlar"
         android:layout_below="@+id/read"
         android:layout_centerVertical="true"
@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/read"
         android:layout_marginTop="5dp"
-        android:text="Bu kitabı okudunuz mu?"
+        android:text="@string/read_checkbox"
         android:layout_below="@+id/spinnerraf"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -103,7 +103,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kitap Ekle"
+        android:text="@string/add_book"
         android:textAllCaps="false"
         android:textSize="17dp"
         android:textColor="@color/colorPrimaryGreen"

@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:hint="Kitap Adı" />
+        android:hint="@string/book_name" />
 
     <EditText
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
         android:ems="10"
         android:layout_marginTop="3dp"
         android:id="@+id/yazard"
-        android:hint="Yazar Adı"
+        android:hint="@string/author_name"
         android:layout_below="@+id/kitapd"
         android:layout_alignLeft="@+id/kitapd"
         android:layout_alignStart="@+id/kitapd" />
@@ -39,12 +39,12 @@
         android:layout_below="@+id/yazard"
         android:layout_alignLeft="@+id/yazard"
         android:layout_alignStart="@+id/yazard"
-        android:hint="Sayfa Sayısı" />
+        android:hint="@string/page" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kaydet"
+        android:text="@string/edit_book"
         android:textAllCaps="false"
         android:textSize="17dp"
         android:id="@+id/duzenled"
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:textSize="18dp"
         android:layout_marginTop="5dp"
-        android:text="Kitap Rafı"
+        android:text="@string/book_shelf"
         android:id="@+id/text_raf"
         android:layout_below="@+id/sayfad"
         android:layout_centerHorizontal="true" />
@@ -88,7 +88,7 @@
         android:textSize="18dp"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/readd"
-        android:text="Kitap Notları"
+        android:text="@string/book_note"
         android:id="@+id/text_notlar"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
@@ -96,7 +96,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bu kitabı okudunuz mu?"
+        android:text="@string/read_checkbox"
         android:id="@+id/readd"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/spinnerrafd"

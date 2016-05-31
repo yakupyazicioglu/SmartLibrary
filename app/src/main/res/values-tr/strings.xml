@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">Kütüphanem</string>
+    <string name="action_settings">Ayarlar</string>
+    <string name="action_search">Arama</string>
+    <string name="action_plus">Ekle</string>
+    <string name="drawer_open">Acik</string>
+    <string name="drawer_close">Kapali</string>
+
+    <!-- navigation drawer names  -->
+    <string name="nav_item_tumkitaplar">Tüm Kitaplar</string>
+    <string name="nav_item_kitapraflari">Kitap Rafları</string>
+    <string name="nav_item_favoriler">Favoriler</string>
+    <string name="nav_item_ayarlar">Ayarlar</string>
+
+    <!-- alert dialog names  -->
+    <string name="alert_item_duzenle">Düzenle</string>
+    <string name="alert_item_favekle">Favorilere Ekle</string>
+    <string name="alert_item_sil">Sil</string>
+
+    <!-- button names  -->
+    <string name="add_book">Kitap Ekle</string>
+    <string name="edit_book">Kaydet</string>
+    <string name="add_shelf">Raf Ekle</string>
+    <string name="edit_shelf">Kaydet</string>
+
+    <!-- add/edit book/shelf names  -->
+    <string name="book_name">Kitap Adı</string>
+    <string name="author_name">Yazar Adı</string>
+    <string name="page">Sayfa Sayısı</string>
+    <string name="book_shelf">Kitap Rafı</string>
+    <string name="read_checkbox">Bu kitabı okudunuz mu?</string>
+    <string name="book_note">Kitap Notları</string>
+    <string name="book_notes">Kitap hakkındaki düşünceleriniz..</string>
+    <string name="save">Kaydet</string>
+    <string name="shelf_name">Raf Adı</string>
+
+    <!-- menu names  -->
+    <string name="menu_duzenle">Düzenle</string>
+    <string name="menu_sil">Sil</string>
+    <string name="menu_favekle">Favorilere Ekle</string>
+
+    <!-- navigation drawer item names  -->
+    <string name="title_tumkitaplar">Tüm Kitaplar</string>
+    <string name="title_rafekle">Kitap Rafları</string>
+    <string name="title_favoriler">Favoriler</string>
+    <string name="title_ayarlar">Ayarlar</string>
+
+    <!-- actionbar item names  -->
+    <string name="title_add_book">Kitap Ekle</string>
+    <string name="title_add_shelf">Raf Ekle</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_tumkitaplar</item>
+        <item>@string/nav_item_kitapraflari</item>
+        <item>@string/nav_item_favoriler</item>
+        <item>@string/nav_item_ayarlar</item>
+    </string-array>
+
+
+</resources>

@@ -5,13 +5,13 @@
 
     <item
         android:id="@+id/action_create_kitap"
-        android:title="Kitap Ekle"
+        android:title="@string/title_add_book"
         android:orderInCategory="100"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_create_raf"
-        android:title="Raf Ekle"
+        android:title="@string/title_add_shelf"
         android:orderInCategory="100"
         app:showAsAction="always" />
 

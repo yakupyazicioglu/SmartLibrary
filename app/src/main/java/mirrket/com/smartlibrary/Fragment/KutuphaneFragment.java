@@ -32,6 +32,7 @@ public class KutuphaneFragment extends Fragment {
     public static final String KEY_NAME = "kitap";
     public static final String KEY_AUTHOR = "yazar";
     public static final String KEY_PAGE = "sayfa";
+    private static String[] titles = null;
     DatabaseHelper databaseHelper;
     ListView lv;
     ListViewAdapter lazyAdapter;

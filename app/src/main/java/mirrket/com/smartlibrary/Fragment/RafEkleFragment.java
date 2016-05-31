@@ -62,7 +62,6 @@ public class RafEkleFragment extends Fragment {
                     String SAYFA = "sayfa";
                     String CREATE_TABLE_SHELF = "CREATE TABLE " + rafedit.getText().toString() + "("
                             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                            + FK + " INTEGER," +" FOREIGN KEY ("+FK+") REFERENCES ("+ID+")"
                             + KITAP + " TEXT,"
                             + YAZAR + " TEXT,"
                             + SAYFA + " TEXT" + ")";

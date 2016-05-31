@@ -121,7 +121,7 @@ public class RaflarFragment extends Fragment {
                 idchild = childPosition;
                 ArrayList<AlertDialogUtils.AlertDialogItem> items = new ArrayList<AlertDialogUtils.AlertDialogItem>();
                 items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_item_sil),mKitapSil) );
-                items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_raf_item_sil),mKitapRafSil) );
+                //items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_raf_item_sil),mKitapRafSil) );
                 AlertDialogUtils.showContextDialogue(getActivity(),"", items);
 
 
@@ -140,6 +140,7 @@ public class RaflarFragment extends Fragment {
         public void run() {
             DatabaseHelper db = new DatabaseHelper(getActivity());
             db.rafSil(raf_liste.get(idraf));
+            Toast.makeText(getActivity(),"Raf Silindi!!", Toast.LENGTH_SHORT).show();
 
             RaflarFragment fragment = new RaflarFragment();
             FragmentTransaction tr = getFragmentManager().beginTransaction();
