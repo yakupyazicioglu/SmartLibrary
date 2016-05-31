@@ -40,7 +40,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/button_popup"
+        android:id="@+id/readimage"
         android:layout_height="wrap_content"
         android:layout_width="33dp"
         android:layout_centerVertical="true"

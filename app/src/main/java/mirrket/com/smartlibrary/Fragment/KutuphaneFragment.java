@@ -2,6 +2,7 @@ package mirrket.com.smartlibrary.Fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ public class KutuphaneFragment extends Fragment {
     public static final String KEY_ID = "id";
     public static final String KEY_NAME = "kitap";
     public static final String KEY_AUTHOR = "yazar";
+    public static final String KEY_READ = "read";
     public static final String KEY_PAGE = "sayfa";
     private static String[] titles = null;
     DatabaseHelper databaseHelper;
@@ -40,6 +43,8 @@ public class KutuphaneFragment extends Fragment {
     ArrayList<HashMap<String, String>> booksList = new ArrayList<HashMap<String, String>>();
     String kitap_idler[];
     int idb;
+    ImageView read;
+    String rea;
 
     public KutuphaneFragment() {
         // Required empty public constructor
@@ -58,6 +63,7 @@ public class KutuphaneFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_kutuphane, container, false);
         lv = (ListView) rootView.findViewById(R.id.tumkitaplar);
+        read = (ImageView) rootView.findViewById(R.id.readimage);
 
         return rootView;
     }
@@ -78,6 +84,10 @@ public class KutuphaneFragment extends Fragment {
                 map.put(KEY_ID, kitap_liste.get(i).get("_id"));
                 map.put(KEY_NAME, kitap_liste.get(i).get("kitap"));
                 map.put(KEY_AUTHOR, kitap_liste.get(i).get("yazar"));
+                map.put(KEY_READ, kitap_liste.get(i).get("read"));
+
+                if(KEY_READ.equals("false"))
+                    read.setVisibility(View.INVISIBLE);
 
                 booksList.add(map);
 
@@ -110,7 +120,7 @@ public class KutuphaneFragment extends Fragment {
             }
         });
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
             {
                 idb=arg2;
@@ -126,7 +136,7 @@ public class KutuphaneFragment extends Fragment {
 
             }
 
-        });
+        });*/
     }
 
     private Runnable mKitapDuzenle = new Runnable() {
