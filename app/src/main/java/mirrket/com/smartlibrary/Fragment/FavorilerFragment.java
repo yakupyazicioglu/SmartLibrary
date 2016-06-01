@@ -39,6 +39,7 @@ public class FavorilerFragment extends Fragment {
     ArrayList<HashMap<String, String>> booksList = new ArrayList<HashMap<String, String>>();
     String fav_kitap_adlari[];
     String fav_kitap_idler[];
+    String fav_kitap_fk[];
     int idb;
 
     public FavorilerFragment() {
@@ -70,6 +71,7 @@ public class FavorilerFragment extends Fragment {
         }else {
             fav_kitap_adlari = new String[fav_kitap_liste.size()];
             fav_kitap_idler = new String[fav_kitap_liste.size()];
+            fav_kitap_fk = new String[fav_kitap_liste.size()];
             for (int i = 0; i < fav_kitap_liste.size(); i++) {
 
                 HashMap<String, String> map = new HashMap<String, String>();
@@ -80,7 +82,7 @@ public class FavorilerFragment extends Fragment {
                 booksList.add(map);
 
                 fav_kitap_idler[i] = fav_kitap_liste.get(i).get("_id");
-                fav_kitap_idler[i] = String.valueOf(Integer.parseInt(fav_kitap_liste.get(i).get("_id")));
+                fav_kitap_fk[i] = fav_kitap_liste.get(i).get("fk");
 
             }
 
@@ -108,6 +110,7 @@ public class FavorilerFragment extends Fragment {
         public void run() {
             DatabaseHelper db = new DatabaseHelper(getActivity());
             db.favSil(Integer.parseInt(fav_kitap_idler[idb]));
+            db.kitapSil(Integer.parseInt(fav_kitap_fk[idb]));
             FavorilerFragment fragment = new FavorilerFragment();
             FragmentTransaction tr = getFragmentManager().beginTransaction();
             tr.replace(R.id.container_body, fragment);

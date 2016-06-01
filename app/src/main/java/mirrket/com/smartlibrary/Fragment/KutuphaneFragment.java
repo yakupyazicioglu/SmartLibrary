@@ -172,9 +172,10 @@ public class KutuphaneFragment extends Fragment {
             String kitap_adi = kitap_liste.get(idb).get("kitap");
             String kitap_yazari = kitap_liste.get(idb).get("yazar");
             String kitap_sayfasi = kitap_liste.get(idb).get("sayfa");
+            String kitap_fk = kitap_liste.get(idb).get("_id");
             Toast.makeText(getActivity(),"Favorilere Eklendi!!", Toast.LENGTH_SHORT).show();
 
-            databaseHelper.favEkle(kitap_adi,kitap_yazari,kitap_sayfasi);
+            databaseHelper.favEkle(kitap_adi,kitap_yazari,kitap_sayfasi,kitap_fk);
         }
     };
 

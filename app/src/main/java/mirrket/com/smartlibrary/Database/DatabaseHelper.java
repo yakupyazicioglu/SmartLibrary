@@ -38,7 +38,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, 1);
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE_ALL = "CREATE TABLE " + TABLE_ALLBOOK + "("
@@ -48,14 +47,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + SAYFA + " TEXT,"
                 + RAF   + " TEXT,"
                 + READ  + " TEXT,"
-                + NOTLAR   + " TEXT" + ")";
+                + NOTLAR   + " TEXT,"
+                + FK + " INTEGER" + ")";
         db.execSQL(CREATE_TABLE_ALL);
 
         String CREATE_TABLE_FAV = "CREATE TABLE " + TABLE_FAVORI + "("
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KITAP + " TEXT,"
                 + YAZAR + " TEXT,"
-                + SAYFA + " TEXT" + ")";
+                + SAYFA + " TEXT,"
+                + FK + " INTEGER NOT NULL,"
+                + " FOREIGN KEY ("+FK+") REFERENCES "+TABLE_ALLBOOK+"("+ID+"));";
+                //+ FK + " INTEGER" +" FOREIGN KEY ("+FK+") REFERENCES "+TABLE_ALLBOOK+"("+ID+")";
         db.execSQL(CREATE_TABLE_FAV);
 
         /*String CREATE_TABLE_DEFAULT_RAF = "CREATE TABLE " + TABLE_DEFAULT_RAF + "("
@@ -103,6 +106,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + id);
         db.close();
+    }
+
+    public void rafLast(String id){
+
+        SQLiteDatabase db = getReadableDatabase();
+        String lastIndex = "SELECT seq from sqlite_sequence where" +TABLE_ALLBOOK;
+        db.execSQL("DROP TABLE IF EXISTS " + id);
+        db.close();
+    }
+
+    public void allLast(){
+
+        SQLiteDatabase db = getReadableDatabase();
+        String lastIndex = "SELECT seq from sqlite_sequence where" +TABLE_ALLBOOK;
+        db.execSQL(lastIndex);
+        db.close();
+        return;
     }
 
     public HashMap<String, String> kitapDetay(int id){
@@ -157,23 +177,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void favEkle(String kitap, String yazar, String sayfa) {
+    public void favEkle(String kitap, String yazar, String sayfa, String fk) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KITAP, kitap);
         values.put(YAZAR, yazar);
         values.put(SAYFA, sayfa);
+        values.put(FK, fk);
 
         db.insert(TABLE_FAVORI, null, values);
         db.close();
     }
 
-    public void rafaEkle(String kitap, String yazar, String sayfa ,String rafAdi) {
+    public void rafaEkle(String kitap, String yazar, String sayfa ,String rafAdi, int fk) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KITAP, kitap);
         values.put(YAZAR, yazar);
         values.put(SAYFA, sayfa);
+        values.put(FK, fk);
         //values.put(READ, read);
         //values.put(NOTLAR, not);
 
@@ -230,7 +252,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<String> rafkitaplar = new ArrayList<String>();
-        String selectQuery = "SELECT kitap FROM " + rafadi;
+        String selectQuery = "SELECT fk FROM " + rafadi;
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
@@ -238,12 +260,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         {
             while ( !cursor.isAfterLast() ){
                 //raflist.add( cursor.getString( cursor.getColumnIndex("name")));
-                rafkitaplar.add( cursor.getString( cursor.getColumnIndex("kitap")));
+                rafkitaplar.add( cursor.getString( cursor.getColumnIndex("fk")));
                 cursor.moveToNext();
             }
         }
         cursor.close();
         return rafkitaplar;
+    }
+
+    public ArrayList<HashMap<String, String>> rafKitaplar1(String rafadi){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT kitap,fk FROM " + rafadi;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        ArrayList<HashMap<String, String>> rafdakikitaplar = new ArrayList<HashMap<String, String>>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                for(int i=0; i<cursor.getColumnCount();i++)
+                {
+                    map.put(cursor.getColumnName(i), cursor.getString(i));
+                }
+
+                rafdakikitaplar.add(map);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        return rafdakikitaplar;
     }
 
 
@@ -311,7 +355,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ALLBOOK + TABLE_FAVORI + TABLE_DEFAULT_RAF);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ALLBOOK + TABLE_FAVORI);
         onCreate(db);
 
     }

@@ -100,9 +100,16 @@ public class KitapEkleFragment extends Fragment implements AdapterView.OnItemSel
                         }
                         values.put("notlar",notlar.getText().toString());
 
+                        if(listspinner.size()==1)
                         db.insert(DatabaseHelper.TABLE_ALLBOOK, null, values);
-                        databaseHelper.rafaEkle(kitap.getText().toString(),yazar.getText().toString(),
-                                sayfa.getText().toString(),String.valueOf(spinner.getSelectedItem()));
+                        else
+                        {
+                            long id = db.insert(DatabaseHelper.TABLE_ALLBOOK, null, values);
+                            //int fk = (int) (id+1);
+                            databaseHelper.rafaEkle(kitap.getText().toString(),yazar.getText().toString(),
+                            sayfa.getText().toString(),String.valueOf(spinner.getSelectedItem()), (int) id);
+                        }
+
 
                         Toast.makeText(getActivity(), "Kitap eklenmiştir.", Toast.LENGTH_SHORT).show();
                         Log.v("DBTEST", "KAYIT EKLENDİ");

@@ -64,7 +64,9 @@ public class RafEkleFragment extends Fragment {
                             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                             + KITAP + " TEXT,"
                             + YAZAR + " TEXT,"
-                            + SAYFA + " TEXT" + ")";
+                            + SAYFA + " TEXT,"
+                            + FK + " INTEGER NOT NULL,"
+                            + " FOREIGN KEY ("+FK+") REFERENCES "+databaseHelper.TABLE_ALLBOOK+"("+ID+"));";
                     db.execSQL(CREATE_TABLE_SHELF);
                     rafedit.setText("");
                     Toast.makeText(getActivity(), "Raf eklenmiştir.", Toast.LENGTH_SHORT).show();

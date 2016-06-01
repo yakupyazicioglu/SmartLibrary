@@ -31,10 +31,12 @@ public class RaflarFragment extends Fragment {
     public static final String KEY_ID = "id";
     public static final String KEY_NAME = "kitap";
     public static final String KEY_AUTHOR = "yazar";
+    public static final String KEY_FK = "fk";
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
+    ArrayList<HashMap<String, String>> raf_kitap_liste;
     ArrayList<HashMap<String, String>> kitap_liste;
     HashMap<String, List<String>> listDataChild;
     ArrayList<HashMap<String, String>> booksList = new ArrayList<HashMap<String, String>>();
@@ -61,7 +63,6 @@ public class RaflarFragment extends Fragment {
         raf_liste = databaseHelper.tumraflar();
         kitap_liste = databaseHelper.tumkitaplar();
 
-
     }
 
     @Override
@@ -82,11 +83,7 @@ public class RaflarFragment extends Fragment {
             map.put(KEY_AUTHOR, kitap_liste.get(i).get("yazar"));
 
             booksList.add(map);
-
             kitap_idler[i] = kitap_liste.get(i).get("_id");
-            //kitap_adlari[i] = kitap_liste.get(i).get("kitap");
-            //kitap_yazarlari[i] = kitap_liste.get(i).get("yazar");
-
         }
 
         expListView = (ExpandableListView)view.findViewById(R.id.expandableListViewRaf);
@@ -154,6 +151,7 @@ public class RaflarFragment extends Fragment {
         public void run() {
             DatabaseHelper db = new DatabaseHelper(getActivity());
             db.kitapSil(Integer.parseInt(kitap_idler[idb]));
+            //db.kitapRafSil(String.valueOf(raf_liste.get(idraf)),idchild);
             Toast.makeText(getActivity(),"Kitap Silindi!!", Toast.LENGTH_SHORT).show();
 
             RaflarFragment fragment = new RaflarFragment();

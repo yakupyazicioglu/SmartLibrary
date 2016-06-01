@@ -115,7 +115,7 @@ public class KitapDuzenleFragment extends Fragment implements AdapterView.OnItem
                 }else{
                     DatabaseHelper db = new DatabaseHelper(getActivity());
                     db.kitapDuzenle(kitap, yazar, sayfa, raf, read, not, id);
-                    db.rafaEkle(kitap,yazar,sayfa,raf);
+                    db.rafaEkle(kitap,yazar,sayfa,raf,id);
                     db.close();
                     Toast.makeText(getActivity(), "Kitabınız Basarıyla Düzenlendi.", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
