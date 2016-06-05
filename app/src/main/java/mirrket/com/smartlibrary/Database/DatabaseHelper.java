@@ -47,8 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + SAYFA + " TEXT,"
                 + RAF   + " TEXT,"
                 + READ  + " TEXT,"
-                + NOTLAR   + " TEXT,"
-                + FK + " INTEGER" + ")";
+                + NOTLAR   + " TEXT" + ")";
         db.execSQL(CREATE_TABLE_ALL);
 
         String CREATE_TABLE_FAV = "CREATE TABLE " + TABLE_FAVORI + "("
@@ -231,6 +230,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<String> raflist = new ArrayList<String>();
         String selectQuery = "SELECT name FROM sqlite_master WHERE type='table'" +
+                " AND name NOT LIKE 'Tüm_Kitaplar'" +
                 " AND name NOT LIKE 'android_metadata'" +
                 " AND name NOT LIKE 'sqlite_sequence'" +
                 " AND name NOT LIKE 'favoriler'";
@@ -252,7 +252,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<String> rafkitaplar = new ArrayList<String>();
-        String selectQuery = "SELECT fk FROM " + rafadi;
+        //String selectQuery = "SELECT fk FROM " + rafadi;
+        String selectQuery = "SELECT kitap FROM " + rafadi;
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
@@ -260,7 +261,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         {
             while ( !cursor.isAfterLast() ){
                 //raflist.add( cursor.getString( cursor.getColumnIndex("name")));
-                rafkitaplar.add( cursor.getString( cursor.getColumnIndex("fk")));
+                //rafkitaplar.add( cursor.getString( cursor.getColumnIndex("fk")));
+                rafkitaplar.add( cursor.getString( cursor.getColumnIndex("kitap")));
                 cursor.moveToNext();
             }
         }
@@ -268,28 +270,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rafkitaplar;
     }
 
-    public ArrayList<HashMap<String, String>> rafKitaplar1(String rafadi){
+    public ArrayList<String> rafKitaplarFk(String rafadi){
 
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT kitap,fk FROM " + rafadi;
+        ArrayList<String> rafkitaplar = new ArrayList<String>();
+        String selectQuery = "SELECT fk FROM " + rafadi;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        ArrayList<HashMap<String, String>> rafdakikitaplar = new ArrayList<HashMap<String, String>>();
 
-        if (cursor.moveToFirst()) {
-            do {
-                HashMap<String, String> map = new HashMap<String, String>();
-                for(int i=0; i<cursor.getColumnCount();i++)
-                {
-                    map.put(cursor.getColumnName(i), cursor.getString(i));
-                }
-
-                rafdakikitaplar.add(map);
-            } while (cursor.moveToNext());
+        cursor.moveToFirst();
+        if (cursor.moveToFirst())
+        {
+            while ( !cursor.isAfterLast() ){
+                rafkitaplar.add( cursor.getString( cursor.getColumnIndex("fk")));
+                cursor.moveToNext();
+            }
         }
-        db.close();
-        return rafdakikitaplar;
+        cursor.close();
+        return rafkitaplar;
     }
-
 
     public ArrayList<HashMap<String, String>> favorikitaplar(){
 

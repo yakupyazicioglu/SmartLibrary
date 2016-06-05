@@ -36,18 +36,18 @@ public class RaflarFragment extends Fragment {
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
-    ArrayList<HashMap<String, String>> raf_kitap_liste;
-    ArrayList<HashMap<String, String>> kitap_liste;
     HashMap<String, List<String>> listDataChild;
+    HashMap<String, List<String>> listDataChildFk;
+    String kitap_fk[];
+    ArrayList<HashMap<String, String>> kitap_liste;
     ArrayList<HashMap<String, String>> booksList = new ArrayList<HashMap<String, String>>();
     DatabaseHelper databaseHelper;
-    ListView raflar;
-    ArrayAdapter<String> adapter;
     int raf_idler[];
     String kitap_idler[];
+    String kitap_fkler[];
     ArrayList<String> raf_liste;
-    int idraf;
     int idb;
+    int idraf;
     int idchild;
     int idgroup;
 
@@ -75,6 +75,7 @@ public class RaflarFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //Tüm kitaplar listesi
         kitap_idler = new String [kitap_liste.size()]; // kitap id lerini tutucam�z string arrayi olusturduk.
         for (int i = 0; i < kitap_liste.size(); i++) {
             HashMap<String, String> map = new HashMap<String, String>();
@@ -113,12 +114,11 @@ public class RaflarFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
-                idb = (int) id;
                 idgroup = groupPosition;
                 idchild = childPosition;
+                idb = (int) id;
                 ArrayList<AlertDialogUtils.AlertDialogItem> items = new ArrayList<AlertDialogUtils.AlertDialogItem>();
                 items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_item_sil),mKitapSil) );
-                //items.add( new AlertDialogUtils.AlertDialogItem(getString(R.string.alert_raf_item_sil),mKitapRafSil) );
                 AlertDialogUtils.showContextDialogue(getActivity(),"", items);
 
 
@@ -150,21 +150,7 @@ public class RaflarFragment extends Fragment {
         @Override
         public void run() {
             DatabaseHelper db = new DatabaseHelper(getActivity());
-            db.kitapSil(Integer.parseInt(kitap_idler[idb]));
-            //db.kitapRafSil(String.valueOf(raf_liste.get(idraf)),idchild);
-            Toast.makeText(getActivity(),"Kitap Silindi!!", Toast.LENGTH_SHORT).show();
-
-            RaflarFragment fragment = new RaflarFragment();
-            FragmentTransaction tr = getFragmentManager().beginTransaction();
-            tr.replace(R.id.container_body, fragment);
-            tr.commit();
-        }
-    };
-
-    private Runnable mKitapRafSil = new Runnable() {
-        @Override
-        public void run() {
-            DatabaseHelper db = new DatabaseHelper(getActivity());
+            db.kitapSil(Integer.parseInt(kitap_idler[idchild]));
             db.kitapRafSil(String.valueOf(raf_liste.get(idraf)),idchild);
             Toast.makeText(getActivity(),"Kitap Silindi!!", Toast.LENGTH_SHORT).show();
 
@@ -175,17 +161,23 @@ public class RaflarFragment extends Fragment {
         }
     };
 
+
     private void prepareListData() {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
+        listDataChildFk = new HashMap<String, List<String>>();
 
         listDataHeader = databaseHelper.tumraflar();
         raf_idler = new int[listDataHeader.size()];
+        kitap_fk = new String[listDataChildFk.size()];
 
         for(int i=0; i<listDataHeader.size();i++)
         {
             //raf_idler[i] = Integer.parseInt(listDataHeader.get(i));
             listDataChild.put(listDataHeader.get(i),databaseHelper.rafKitaplar(String.valueOf(listDataHeader.get(i))));
+            //listDataChildFk.put(listDataHeader.get(i),databaseHelper.rafKitaplarFk(String.valueOf(listDataHeader.get(i))));
+            //kitap_fk[i] = String.valueOf(listDataChild.get(i).get(Integer.parseInt("fk")));
+
         }
 
     }

@@ -34,7 +34,6 @@ public class FavorilerFragment extends Fragment {
     DatabaseHelper databaseHelper;
     ListView lv;
     ListViewAdapter lazyAdapter;
-    ArrayAdapter<String> adapter;
     ArrayList<HashMap<String, String>> fav_kitap_liste;
     ArrayList<HashMap<String, String>> booksList = new ArrayList<HashMap<String, String>>();
     String fav_kitap_adlari[];
@@ -110,10 +109,10 @@ public class FavorilerFragment extends Fragment {
         public void run() {
             DatabaseHelper db = new DatabaseHelper(getActivity());
             db.favSil(Integer.parseInt(fav_kitap_idler[idb]));
-            db.kitapSil(Integer.parseInt(fav_kitap_fk[idb]));
+            //db.kitapSil(Integer.parseInt(fav_kitap_fk[idb]));
             FavorilerFragment fragment = new FavorilerFragment();
             FragmentTransaction tr = getFragmentManager().beginTransaction();
-            tr.replace(R.id.container_body, fragment);
+            tr.replace(R.id.container_body, fragment).addToBackStack( "tag" ).commit();
             tr.commit();
         }
     };
